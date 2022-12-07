@@ -20,17 +20,20 @@ template = Jinja2Templates(directory='templates')
 
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request):
-    return template.TemplateResponse('index.html',  {"request": request, "result": None})
+    return template.TemplateResponse('index.html',  {"request": request, "disabled": True, "result": False})
 
 @app.post('/')
-def add_audio(request: Request, file: bytes = File()):
+def convert_guide(request: Request, file: bytes = File()):
     with open('audio.mp4', 'wb') as f:
         f.write(file)
     
     path = "static"
-    files = glob.glob(os.path.join(path, "*.jpg" and "*.docx"))
-    for file in files:
-        os.remove(file)
+    imageFiles = glob.glob(os.path.join(path, "*.jpg"))
+    docFiles = glob.glob(os.path.join(path, "*.docx"))
+    for image in imageFiles:
+        os.remove(image)
+    for doc in docFiles:
+        os.remove(doc)
 
     data = request.form()
     model_type = asyncio.run(data)['model_type']
@@ -69,4 +72,4 @@ def add_audio(request: Request, file: bytes = File()):
 
     document.save('static/output.docx')
 
-    return template.TemplateResponse('index.html',  {"request": request, "result": "Download Guide"})
+    return template.TemplateResponse('index.html',  {"request": request, "disabled": False, "result": True})
