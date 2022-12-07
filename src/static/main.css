@@ -3,7 +3,7 @@ form {
     text-align: center;
 }
 
-input, audio{
+input, audio {
     width: 25em;
     margin: 2em 0;
 }
@@ -20,4 +20,8 @@ input, audio{
 
 p {
     font-size: 1.5em;
+}
+
+div.button {
+    display: block;
 }

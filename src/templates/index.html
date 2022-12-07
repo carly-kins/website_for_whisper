@@ -32,9 +32,12 @@
 
     <input type="submit" id="submit" value="Convert audio to text">
     
-    {% if text %}
-        <p>{{ text }}</p>
+    {% if result %}
+    <div class="button">
+        <a href="{{ url_for('static', path='/output.docx') }}">{{ result }}</a>
+    </div>
     {% endif %}
+
 </form>
 </body>
 </html>

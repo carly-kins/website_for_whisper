@@ -5,6 +5,7 @@ python-multipart
 git+https://github.com/openai/whisper.git
 opencv-contrib-python
 pandas
+python-docx
 
 numpy
 torch
@@ -12,4 +13,4 @@ tqdm
 more-itertools
 transformers>=4.19.0
 ffmpeg-python==0.2.0
-
+pydantic
