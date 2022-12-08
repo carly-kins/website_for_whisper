@@ -71,7 +71,7 @@ def convert_guide(model_type, screenshots, dir, video, doc):
         print("Error Saving Images")
 
     for second, line in zip(averages, combine_lines):
-        document.add_picture(dir + str(second) + ".jpg", width=Inches(2))
+        document.add_picture(dir + str(second) + ".jpg", width=Inches(3))
         document.add_paragraph(line)
 
     document.save(dir + doc)
