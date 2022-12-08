@@ -10,29 +10,31 @@
     <div class="heading">
         <h1>Silent Guide</h1>
         <h2>Create Base User Guides from Video</h2>
-        <p>This web app makes use of <a href="https://openai.com/blog/whisper/">Whisper</a> to create a tanscription of a video. Then it uses <a href="https://pypi.org/project/opencv-python/">OpenCV</a> to to take screenshots at the beginning of each spoken line. The output is saved to a docx.</p>
-        <p>The goal of this project is to give users a baseline for creating user guides if they have a recorded knowledge sharing session</p>
+        <p>This web app makes use of <a href="https://openai.com/blog/whisper/">Whisper</a> to create a tanscription of a video. Then it uses <a href="https://pypi.org/project/opencv-python/">OpenCV</a> to to take screenshots at the beginning of each spoken line. The output is saved to a docx.<br> The goal of this project is to give users a baseline for creating user guides if they have a recorded knowledge sharing session</p>
     </div>
-    <form  class=form action="/" enctype="multipart/form-data" method="post">
-        <div class="flex-column">
-            <div class="flex">
-                <label for="recorder">Choose an .MP4 to Upload: </label>
-                <input type="file" accept="audio/*" capture id="recorder" name="file" required name="recorder"><br>
-            </div>
-
-            <div class="flex">
-                <label for="model_type">Choose a Whisper model which you want to use: </label>
-                <select id="model_type" name="model_type">
-                    <option value="tiny">tiny</option>
-                    <option value="base">base</option>
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
-                </select>
-                <p class="note">Smaller the whisper models provide quicker output with lower quality</p>
-            </div>
-            <div class="flex">
-                <audio id="player" controls></audio><br>
+    <form class=form action="/guide/" enctype="multipart/form-data" method="post">
+        <div class="spacing">
+            <label for="recorder">Choose an .MP4 to Upload: </label>
+            <input type="file" accept="audio/*" capture id="recorder" name="file" required name="recorder">
+        </div>
+        <div class="spacing">
+            <label for="model_type">Choose a Whisper model which you want to use: </label>
+            <select id="model_type" name="model_type">
+                <option value="tiny">tiny</option>
+                <option value="base">base</option>
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+            </select>
+            <p class="note">Smaller the whisper models provide quicker output with lower quality</p>
+        </div>
+        <div class="spacing">
+            <label for="screenshots">Lines per Screenshot: </label>
+            <input type="number" id="screenshots" name="screenshots" value="1" min="1" max="10000">
+            <p class="note">This option determines how large the word document will be. I ran an hour tutorial it with a 1:1 ratio and it output <em>~3000</em> images!</p>
+        </div>
+        <div class="spacing">
+                <audio class="width" id="player" controls></audio><br>
 
                 <script>
                     const recorder = document.getElementById('recorder');
@@ -44,20 +46,23 @@
                         player.src = url;
                     });
                 </script>
+        </div>
+        <div class="spacing">
+            <div class="flex-row">
+                <input class="button flex" type="submit" id="submit" value="Convert to Guide">
+                
+                <input class="button {% if disabled %} disabled {% endif %} flex" id="download" type="button" {% if result %} onclick="window.location.href='{{ url_for('static', path='temp/output.docx') }}';" {% endif %} value="Download Guide">
             </div>
         </div>
-        
-        <div class="flex-row">
-            <input class="button flex" type="submit" id="submit" value="Convert to Guide">
-            <div class="button flex-column {% if disabled %} disabled {% endif %} flex">
-                <a id="download" class="flex-column" {% if result %} href="{{ url_for('static', path='/output.docx') }}" {% endif %}><p class="flex">Download Guide</p></a>
-            </div>
+        <div class="spacing flex-row">
+            <input class="button flex" id="clear" type="button"  onclick="window.location.href='/';" value="Start Over">
         </div>
     </form>
-    <footer class="footer" >
-          <p class="footer-description">Made with ❤️ by <a href="https://github.com/carly-kins">Carly</a></p>
-          <p class="footer-description">Thanks to Github user <a href="https://github.com/Kabanosk/website_for_whisper">Kabanosk</a> for the baseline app setup!</p>
-      </footer>
+    <footer class="footer">
+        <p class="footer-description">Made with ❤️ by <a href="https://github.com/carly-kins">Carly</a></p>
+        <p class="footer-description">Thanks to Github user <a
+                href="https://github.com/Kabanosk/website_for_whisper">Kabanosk</a> for the baseline app setup!</p>
+    </footer>
 </body>
 
 </html>

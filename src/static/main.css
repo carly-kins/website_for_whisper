@@ -29,7 +29,8 @@ h1 {
 }
 
 p {
-    margin: .25em 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .form {
@@ -40,21 +41,23 @@ p {
     padding: 2em;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .flex-row {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 .flex {
     flex: 1;
-    margin: 1em auto;
+}
+
+.spacing {
+    margin-bottom: 1em;
+}
+
+.width {
+    width: 100%;
 }
 
 label {
@@ -68,6 +71,8 @@ label {
 
 .note {
     font-size: 10px;
+    text-align: left;
+    margin: 0;
 }
 
 select {
@@ -87,14 +92,12 @@ a:hover {
 }
 
 .button {
-    display: block;
     font-size: 1em;
     margin-left: .5em;
     margin-right: .5em;
-    margin-top: 1em;
     max-width: 50%;
     min-width: 25%;
-    height: 3em;
+    height: 2em;
     background-color: #B0CAE3;
     border: 1px solid rgba(50, 52, 57, 0.89);
     border-radius: 2px;
@@ -110,13 +113,13 @@ a:hover {
 
 .disabled, .disabled:hover {
     background-color: gray;
-    color: white;
-    cursor: text;
-    text-decoration: none;
+    cursor: not-allowed;
+    color: black;
 }
 
-#download {
-    text-decoration: none;
+.center {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .footer {
