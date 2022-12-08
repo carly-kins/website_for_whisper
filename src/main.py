@@ -43,21 +43,53 @@ def convert_guide(request: Request, file: bytes = File()):
 
     seconds = []
     for item in range(len(segments)):
-        seconds.append(segments[item]['start'])
-
+        seconds.append(round(segments[item]['start']))
     lines = []
     for item in range(len(segments)):
         lines.append(segments[item]['text'])
+
+    averages = []
+    total = 0
+    count = 0
+
+    for sec in seconds:
+        total += sec
+        count += 1
+        if count == 3:
+            average = round(total / 3)
+            averages.append(average)
+
+            total = 0
+            count = 0
+
+    if count > 0:
+        average = total / count
+        averages.append(average)  
+
+    combine_lines = []
+    temp = ''
+    count = 0
     
+    for line in lines:
+        temp += line
+        count += 1
+        if count == 3:
+            combine_lines.append(temp)
+
+            temp = ''
+            count = 0
+
+    if count > 0:
+        combine_lines.append(temp) 
 
     vidcap = cv2.VideoCapture("audio.mp4")
     success,image = vidcap.read()
     success = True
     while success:
-        for sec in seconds: 
-            vidcap.set(cv2.CAP_PROP_POS_MSEC,(sec*1000))
+        for avg in averages: 
+            vidcap.set(cv2.CAP_PROP_POS_MSEC,(avg*1000))
             success,image = vidcap.read()
-            cv2.imwrite("static/" + str(sec) + ".jpg", image)  
+            cv2.imwrite("static/" + str(avg) + ".jpg", image)  
         break
     else:
         print("Error Saving Images")
@@ -66,8 +98,8 @@ def convert_guide(request: Request, file: bytes = File()):
 
     document.add_heading('Whisper Generated Guide', 0)
 
-    for second, line in zip(seconds, lines):
-        document.add_picture("static/" + str(second) + ".jpg", width=Inches(1.25))
+    for second, line in zip(averages, combine_lines):
+        document.add_picture("static/" + str(second) + ".jpg", width=Inches(2))
         document.add_paragraph(line)
 
     document.save('static/output.docx')
