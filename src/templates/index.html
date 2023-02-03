@@ -3,6 +3,7 @@
 
 <head>
     <link href="{{ url_for('static', path='/main.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/main.js') }}"></script>
     <title>Convertion by Whisper</title>
 </head>
 
@@ -34,28 +35,17 @@
             <p class="note">This option determines how large the word document will be. I ran an hour tutorial it with a 1:1 ratio and it output <em>~3000</em> images!</p>
         </div>
         <div class="spacing">
-                <audio class="width" id="player" controls></audio><br>
-
-                <script>
-                    const recorder = document.getElementById('recorder');
-                    const player = document.getElementById('player');
-
-                    recorder.addEventListener('change', function (e) {
-                        const file = e.target.files[0];
-                        const url = URL.createObjectURL(file);
-                        player.src = url;
-                    });
-                </script>
+            <audio class="width" id="player" controls></audio><br>
         </div>
         <div class="spacing">
             <div class="flex-row">
                 <input class="button flex" type="submit" id="submit" value="Convert to Guide">
                 
-                <input class="button {% if disabled %} disabled {% endif %} flex" id="download" type="button" {% if result %} onclick="window.location.href='{{ url_for('static', path='temp/output.docx') }}';" {% endif %} value="Download Guide">
+                <a class="button {% if disabled %} disabled {% endif %} flex" id="download" {% if result %} href="{{ url_for('static', path='temp/output.docx') }}" {% endif %}>Download Guide</a>
             </div>
         </div>
         <div class="spacing flex-row">
-            <input class="button flex" id="clear" type="button"  onclick="window.location.href='/';" value="Start Over">
+            <a class="button flex" id="clear" href="/">Start Over</a>
         </div>
     </form>
     <footer class="footer">

@@ -2,6 +2,7 @@ import whisper
 import cv2
 import os
 import glob
+import summarize
 from docx import Document
 from docx.shared import Inches
 
@@ -72,7 +73,7 @@ def convert_guide(model_type, screenshots, dir, video, doc):
 
     for second, line in zip(averages, combine_lines):
         document.add_picture(dir + str(second) + ".jpg", width=Inches(3))
-        document.add_paragraph(line)
+        document.add_paragraph(summarize.summarize(line))
 
     document.save(dir + doc)
     imageFiles = glob.glob(os.path.join(dir, "*.jpg"))

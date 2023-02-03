@@ -14,7 +14,9 @@ template = Jinja2Templates(directory='templates')
 
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request):
-    return template.TemplateResponse('index.html',  {"request": request, "disabled": True, "result": False})
+    templateResponse = template.TemplateResponse('index.html',  {"request": request, "disabled": True, "result": False})
+    print(templateResponse)
+    return templateResponse
 
 @app.post('/guide/')
 def audio(request: Request, file: bytes = File(), model_type: str = Form(), screenshots: int = Form()):
@@ -26,4 +28,7 @@ def audio(request: Request, file: bytes = File(), model_type: str = Form(), scre
     with open(completeName, 'wb') as f:
         f.write(file)
     convertguideapp.convert_guide(model_type, screenshots, dir, completeName, doc)
-    return template.TemplateResponse('index.html',  {"request": request, "disabled": False, "result": True})
+    templateResponse = template.TemplateResponse('index.html',  {"request": request, "disabled": False, "result": True})
+    print(templateResponse)
+    return templateResponse
+    
