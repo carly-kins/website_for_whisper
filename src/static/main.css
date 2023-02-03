@@ -1,23 +1,154 @@
-form {
-    width:100%;
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    background: lightblue center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.heading {
+    margin: 2em auto 1em;
+    max-width: 550px;
+}
+
+h1,
+h2,
+p,
+a {
     text-align: center;
+    color: black;
 }
 
-input, audio{
-    width: 25em;
-    margin: 2em 0;
-}
-
-#recorder {
-    font-size: 1em;
-    width: 20em;
-}
-
-#submit {
-    border-radius: 3em;
-    height: 5em;
+h1 {
+    margin: .5em 0;
 }
 
 p {
-    font-size: 1.5em;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+
+
+.form {
+    background-color: rgba(251, 253, 255, 0.75);
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 1em auto;
+    padding: 2em;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.flex {
+    flex: 1;
+}
+
+.spacing {
+    margin-bottom: 1em;
+}
+
+.width {
+    width: 100%;
+}
+
+label {
+    text-align: center;
+}
+
+#recorder {
+    width: 20em;
+    display: inline
+}
+
+.note {
+    font-size: 10px;
+    text-align: left;
+    margin: 0;
+}
+
+select {
+    height: 2em;
+    width: 150px;
+    text-align: center;
+    display: inline;
+}
+
+audio {
+    width: 25em;
+    margin: 0 auto;
+}
+
+a:hover {
+    color: rgb(227, 145, 119);
+}
+
+input[type="submit"] { 
+    padding: 0;
+    font-family: sans-serif;
+    appearance: none;
+}
+
+.button {
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-left: .5em;
+    margin-right: .5em;
+    max-width: 50%;
+    min-width: 25%;
+    background-color: #B0CAE3;
+    border: 1px solid rgba(50, 52, 57, 0.89);
+    border-radius: 2px;
+    height: 28px;
+    align-items: center;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+}
+
+.button:hover {
+    background: rgb(227, 145, 119);
+    border: 1px solid rgba(50, 52, 57, 0.89);
+    border-radius: 2px;
+    color: #ffffff;
+}
+
+.disabled, .disabled:hover {
+    background-color: gray;
+    cursor: not-allowed;
+    color: black;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer {
+    background: black;
+    margin-top: auto;
+    padding: 1em 0;
+}
+
+.footer-description {
+    color: white;
+}
+
+.footer-description a {
+    color: lightblue;
+}
+
+.footer-description a:hover {
+    color: white
 }
